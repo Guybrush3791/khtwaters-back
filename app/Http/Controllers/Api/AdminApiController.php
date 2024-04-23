@@ -21,8 +21,7 @@ class AdminApiController extends Controller
     // GET USER
     public function getUsers() {
 
-        // $users = User::with('books')->get();
-        $users = User::all();
+        $users = User::with('books')->get();
         $users->load('roles');
 
         return response()->json($users);
