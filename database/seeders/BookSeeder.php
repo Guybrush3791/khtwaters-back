@@ -17,10 +17,21 @@ class BookSeeder extends Seeder
      */
     public function run()
     {
-        Book :: factory() -> count(10) -> make() -> each(function ($book) {
+        $index = 1;
+        $books = Book :: factory() -> count(10) -> make();
+
+        foreach ($books as $book) {
+            $book -> cover = $index++ . ".jpg";
+            $book -> images = json_encode([
+                $index++ . ".jpg",
+                $index++ . ".jpg",
+                $index++ . ".jpg",
+            ]);
+
             $user = User :: inRandomOrder() -> first();
+
             $book -> user() -> associate($user);
             $book -> save();
-        });
+        }
     }
 }

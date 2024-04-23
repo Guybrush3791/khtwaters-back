@@ -11,7 +11,7 @@ class GuestApiController extends Controller
 {
     public function getBooks() {
 
-        $books = Book::all();
+        $books = Book :: orderBy('updated_at', 'desc') -> get();
 
         return response()->json($books);
     }

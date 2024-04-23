@@ -14,6 +14,15 @@ use App\Models\User;
 
 class AuthApiController extends Controller
 {
+    // IS ADMIN
+    public function isAdmin() {
+
+        $user = auth()->user();
+        $user -> load('roles');
+
+        return response()->json($user -> hasRole('admin'));
+    }
+
     public function login(Request $request)
     {
         $credentials = $request->only('email', 'password');
@@ -36,7 +45,7 @@ class AuthApiController extends Controller
             return response()->json($validator->errors()->toJson(), 400);
         }
 
-        $userRole = Role::findByName('user');
+        $userRole = Role::findByName('user', 'api');
 
         $user = new User();
         $user->name = $request->name;
@@ -53,7 +62,7 @@ class AuthApiController extends Controller
         $validator = Validator::make($request->all(), [
             'name' => 'required|string|min:3|max:255',
             'email' => 'required|string|email|max:255|unique:users,email,' . auth()->id(),
-            'password' => 'required|string|min:3',
+            'password' => 'nullable|string|min:3',
         ]);
 
         if ($validator->fails()) {

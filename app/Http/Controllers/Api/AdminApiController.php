@@ -10,14 +10,6 @@ use App\Models\User;
 
 class AdminApiController extends Controller
 {
-    // IS ADMIN
-    public function isAdmin() {
-
-        return response()->json([
-            'message' => 'You are an admin'
-        ]);
-    }
-
     // GET USER
     public function getUsers() {
 
@@ -48,7 +40,10 @@ class AdminApiController extends Controller
         $user = User::find($id);
         $user->name = $request->name;
         $user->email = $request->email;
-        $user->password = bcrypt($request->password);
+
+        if (trim($request->password) != '')
+            $user->password = bcrypt($request->password);
+
         $user->save();
 
         if ($request -> admin) {

@@ -21,14 +21,14 @@ class BookFactory extends Factory
             'name' => fake() -> words(rand(3, 5), true),
             'description' => fake() -> sentences(rand(10, 20), true),
             'price' => fake() -> randomFloat(2, 10, 100),
-            'cover' => rand(1, 10) . ".jpg",
-            'images' => json_encode([
-                rand(1, 10) . ".jpg",
-                rand(1, 10) . ".jpg",
-                rand(1, 10) . ".jpg",
-                rand(1, 10) . ".jpg",
-                rand(1, 10) . ".jpg",
-            ]),
+            // 'cover' => rand(1, 10) . ".jpg",
+            // 'images' => json_encode([
+            //     rand(1, 10) . ".jpg",
+            //     rand(1, 10) . ".jpg",
+            //     rand(1, 10) . ".jpg",
+            //     rand(1, 10) . ".jpg",
+            //     rand(1, 10) . ".jpg",
+            // ]),
         ];
     }
 }
